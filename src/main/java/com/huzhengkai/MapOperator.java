@@ -18,7 +18,8 @@ public class MapOperator
 		//集群模式不需要setMaster，使用spark-submit提交程序
 		//local决定了我们的partition是1个
         JavaSparkContext sc = new JavaSparkContext(conf);
-        
+
+
         List<Integer> numbers = Arrays.asList(1,2,3,4,5);
         JavaRDD<Integer> numberRDD = sc.parallelize(numbers);
         // map对每个元素进行操作
