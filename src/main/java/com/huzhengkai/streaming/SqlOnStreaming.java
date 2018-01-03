@@ -26,12 +26,12 @@ import java.util.Iterator;
 /**
  * Created by root on 2018/1/2.
  */
-public class sqlOnStreaming
+public class SqlOnStreaming
 {
     public static void main(String[] args) throws InterruptedException
     {
-        SparkConf conf = new SparkConf().setMaster("local[2]").setAppName("NetworkWordCount");
-        conf.set("spark.testing.memory", "2147480000");
+        SparkConf conf = new SparkConf().setAppName("NetworkWordCount");
+        //conf.set("spark.testing.memory", "2147480000");
         JavaStreamingContext jssc = new JavaStreamingContext(conf, Durations.seconds(2));
         JavaReceiverInputDStream<String> lines = jssc.socketTextStream("Main", 9999);
         JavaDStream<String> words = lines.flatMap(
