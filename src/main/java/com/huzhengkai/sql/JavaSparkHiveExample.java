@@ -64,79 +64,85 @@ public class JavaSparkHiveExample
     {
         // $example on:spark_hive$
         // warehouseLocation points to the default location for managed databases and tables
-        String warehouseLocation = "spark-warehouse";
+        String warehouseLocation = "D:\\IDEA\\spark_2_1_1\\spark-warehouse";
         SparkSession spark = SparkSession
                 .builder()
                 .appName("Java Spark Hive Example")
+                .master("local[1]")
+                .config("spark.testing.memory", "2147480000")
                 .config("spark.sql.warehouse.dir", warehouseLocation)
                 .enableHiveSupport()
                 .getOrCreate();
 
-        spark.sql("CREATE TABLE IF NOT EXISTS src (key INT, value STRING)");
-        spark.sql("LOAD DATA LOCAL INPATH 'examples/src/main/resources/kv1.txt' INTO TABLE src");
+        spark.sql("CREATE TABLE IF NOT EXISTS src111 (key INT, value STRING)");
 
-        // Queries are expressed in HiveQL
-        spark.sql("SELECT * FROM src").show();
-        // +---+-------+
-        // |key|  value|
-        // +---+-------+
-        // |238|val_238|
-        // | 86| val_86|
-        // |311|val_311|
-        // ...
+        spark.sql("LOAD DATA LOCAL INPATH 'D:/IDEA/spark_2_1_1/src/main/resources/kv1.txt' INTO TABLE src111");
 
-        // Aggregation queries are also supported.
-        spark.sql("SELECT COUNT(*) FROM src").show();
-        // +--------+
-        // |count(1)|
-        // +--------+
-        // |    500 |
-        // +--------+
+            // Queries are expressed in HiveQL
+            spark.sql("SELECT * FROM src111").show();
+            // +---+-------+
+            // |key|  value|
+            // +---+-------+
+            // |238|val_238|
+            // | 86| val_86|
+            // |311|val_311|
+            // ...
 
-        // The results of SQL queries are themselves DataFrames and support all normal functions.
-        Dataset<Row> sqlDF = spark.sql("SELECT key, value FROM src WHERE key < 10 ORDER BY key");
+            // Aggregation queries are also supported.
+            spark.sql("SELECT COUNT(*) FROM src111").show();
+            // +--------+
+            // |count(1)|
+            // +--------+
+            // |    500 |
+            // +--------+
 
-        // The items in DaraFrames are of type Row, which lets you to access each column by ordinal.
-        Dataset<String> stringsDS = sqlDF.map(new MapFunction<Row, String>()
-        {
-            @Override
-            public String call(Row row) throws Exception
+            // The results of SQL queries are themselves DataFrames and support all normal functions.
+            Dataset<Row> sqlDF = spark.sql("SELECT key, value FROM src111 WHERE key < 10 ORDER BY key");
+
+            // The items in DaraFrames are of type Row, which lets you to access each column by ordinal.
+            Dataset<String> stringsDS = sqlDF.map(new MapFunction<Row, String>()
             {
-                return "Key: " + row.get(0) + ", Value: " + row.get(1);
+                @Override
+                public String call(Row row) throws Exception
+                {
+                    return "Key: " + row.get(0) + ", Value: " + row.get(1);
+                }
+            }, Encoders.STRING());
+            stringsDS.show();
+            // +--------------------+
+            // |               value|
+            // +--------------------+
+            // |Key: 0, Value: val_0|
+            // |Key: 0, Value: val_0|
+            // |Key: 0, Value: val_0|
+            // ...
+
+            // You can also use DataFrames to create temporary views within a SparkSession.
+            List<Record> records = new ArrayList<>();
+            for (int key = 1; key < 100; key++)
+            {
+                Record record = new Record();
+                record.setKey(key);
+                record.setValue("val_" + key);
+                records.add(record);
             }
-        }, Encoders.STRING());
-        stringsDS.show();
-        // +--------------------+
-        // |               value|
-        // +--------------------+
-        // |Key: 0, Value: val_0|
-        // |Key: 0, Value: val_0|
-        // |Key: 0, Value: val_0|
-        // ...
+            Dataset<Row> recordsDF = spark.createDataFrame(records, Record.class);
+            recordsDF.createOrReplaceTempView("records");
 
-        // You can also use DataFrames to create temporary views within a SparkSession.
-        List<Record> records = new ArrayList<>();
-        for (int key = 1; key < 100; key++)
-        {
-            Record record = new Record();
-            record.setKey(key);
-            record.setValue("val_" + key);
-            records.add(record);
-        }
-        Dataset<Row> recordsDF = spark.createDataFrame(records, Record.class);
-        recordsDF.createOrReplaceTempView("records");
+            // Queries can then join DataFrames data with data stored in Hive.
+            spark.sql("SELECT * FROM records r JOIN src111 s ON r.key = s.key").show();
+            // +---+------+---+------+
+            // |key| value|key| value|
+            // +---+------+---+------+
+            // |  2| val_2|  2| val_2|
+            // |  2| val_2|  2| val_2|
+            // |  4| val_4|  4| val_4|
+            // ...
+            // $example off:spark_hive$
 
-        // Queries can then join DataFrames data with data stored in Hive.
-        spark.sql("SELECT * FROM records r JOIN src s ON r.key = s.key").show();
-        // +---+------+---+------+
-        // |key| value|key| value|
-        // +---+------+---+------+
-        // |  2| val_2|  2| val_2|
-        // |  2| val_2|  2| val_2|
-        // |  4| val_4|  4| val_4|
-        // ...
-        // $example off:spark_hive$
+            spark.stop();
 
-        spark.stop();
+
+
     }
 }

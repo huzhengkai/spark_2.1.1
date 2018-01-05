@@ -117,8 +117,8 @@ public class JavaSQLDataSourceExample
 //        runBasicDataSourceExample(spark);
 //        runBasicParquetExample(spark);
 //        runParquetSchemaMergingExample(spark);
-        runJsonDatasetExample(spark);
-//        runJdbcDatasetExample(spark);
+//        runJsonDatasetExample(spark);
+        runJdbcDatasetExample(spark);
 
         spark.stop();
     }
