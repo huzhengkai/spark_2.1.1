@@ -10,6 +10,7 @@ import org.apache.spark.api.java.function.VoidFunction;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
+import org.elasticsearch.hadoop.rest.EsHadoopInvalidRequest;
 import org.elasticsearch.spark.rdd.api.java.JavaEsSpark;
 
 import java.io.IOException;
@@ -21,10 +22,6 @@ import java.util.Set;
  */
 public class OracleToES
 {
-    private static final String ORACLE_USERNAME = "pcl";
-    private static final String ORACLE_PWD = "Phpcl321";
-    private static final String ORACLE_CONNECTION_URL = "jdbc:oracle:thin:@221.236.20.211:15213:orcl";
-    private static final String ORACLE_DRIVER = "oracle.jdbc.driver.OracleDriver";
     public static void main(String[] args) throws IOException
     {
         SparkSession spark = SparkSession
@@ -38,6 +35,7 @@ public class OracleToES
                 .config("es.net.http.auth.pass", "phkj@123")
                 .config("es.batch.size.bytes", "10mb")
                 .config("es.batch.size.entries", "30000")
+                .config("es.input.json", "true")
                 .getOrCreate();
         Dataset<Row> jdbcDF = spark.read()
                 .format("jdbc")
@@ -64,11 +62,19 @@ public class OracleToES
                     String value = obj.getString(key);
                     obj.put(key,value);
                 }
-                return obj.toJSONString();
+                JSONObject obj1 = new JSONObject();
+                obj1.put("data",obj);
+                return obj1.toJSONString();
             }
         });
-        JavaEsSpark.saveToEs(rdd2,"RPT_T_LOAN_WIDE/type");
-
-
+//        rdd2.foreach(new VoidFunction<String>()
+//        {
+//            @Override
+//            public void call(String s) throws Exception
+//            {
+//                System.out.println(s);
+//            }
+//        });
+        JavaEsSpark.saveJsonToEs(rdd2,"ds_rpt_t_loan_wide/data");
     }
 }
