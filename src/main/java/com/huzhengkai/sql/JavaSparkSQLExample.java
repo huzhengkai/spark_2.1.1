@@ -338,7 +338,7 @@ public class JavaSparkSQLExample
         String schemaString = "name age";
 
         // Generate the schema based on the string of schema
-        List<StructField> fields = new ArrayList<>();
+        List<StructField> fields = new ArrayList<StructField>();
         for (String fieldName : schemaString.split(" "))
         {
             StructField field = DataTypes.createStructField(fieldName, DataTypes.StringType, true);
@@ -349,7 +349,7 @@ public class JavaSparkSQLExample
         // Convert records of the RDD (people) to Rows
         JavaRDD<Row> rowRDD = peopleRDD.map(new Function<String, Row>()
         {
-            @Override
+
             public Row call(String record) throws Exception
             {
                 String[] attributes = record.split(",");
@@ -370,7 +370,7 @@ public class JavaSparkSQLExample
         // The columns of a row in the result can be accessed by field index or by field name
         Dataset<String> namesDS = results.map(new MapFunction<Row, String>()
         {
-            @Override
+
             public String call(Row row) throws Exception
             {
                 return "Name: " + row.getString(0);

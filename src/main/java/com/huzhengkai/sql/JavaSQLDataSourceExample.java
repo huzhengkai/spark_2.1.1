@@ -176,7 +176,7 @@ public class JavaSQLDataSourceExample
     private static void runParquetSchemaMergingExample(SparkSession spark)
     {
         // $example on:schema_merging$
-        List<Square> squares = new ArrayList<>();
+        List<Square> squares = new ArrayList<Square>();
         for (int value = 1; value <= 5; value++)
         {
             Square square = new Square();
@@ -189,7 +189,7 @@ public class JavaSQLDataSourceExample
         Dataset<Row> squaresDF = spark.createDataFrame(squares, Square.class);
         squaresDF.write().parquet("data/test_table/key=1");
 
-        List<Cube> cubes = new ArrayList<>();
+        List<Cube> cubes = new ArrayList<Cube>();
         for (int value = 6; value <= 10; value++)
         {
             Cube cube = new Cube();

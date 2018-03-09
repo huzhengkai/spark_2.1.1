@@ -34,7 +34,7 @@ public class SparkToEs
         JavaRDD<String> basicRdd = rdd.map(new Function<String, String>()
         {
 
-            @Override
+
             public String call(String v1) throws Exception
             {
                 JSONObject obj = JSONObject.parseObject(v1);
@@ -66,7 +66,7 @@ public class SparkToEs
         JavaRDD<String> historyRdd = rdd1.map(new Function<String, String>()
         {
 
-            @Override
+
             public String call(String v1) throws Exception
             {
                 JSONObject obj = JSONObject.parseObject(v1);
@@ -98,7 +98,7 @@ public class SparkToEs
         JavaRDD<String> behaviorRdd = rdd2.map(new Function<String, String>()
         {
 
-            @Override
+
             public String call(String v1) throws Exception
             {
                 JSONObject obj = JSONObject.parseObject(v1);
@@ -132,7 +132,7 @@ public class SparkToEs
         JavaRDD<String> informationRdd = rdd3.map(new Function<String, String>()
         {
 
-            @Override
+
             public String call(String v1) throws Exception
             {
                 JSONObject obj = JSONObject.parseObject(v1);

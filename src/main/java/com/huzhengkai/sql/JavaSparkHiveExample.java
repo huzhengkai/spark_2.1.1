@@ -118,7 +118,7 @@ public class JavaSparkHiveExample
             // ...
 
             // You can also use DataFrames to create temporary views within a SparkSession.
-            List<Record> records = new ArrayList<>();
+            List<Record> records = new ArrayList<Record>();
             for (int key = 1; key < 100; key++)
             {
                 Record record = new Record();

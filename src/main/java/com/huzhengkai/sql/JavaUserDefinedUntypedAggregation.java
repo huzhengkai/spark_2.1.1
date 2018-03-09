@@ -43,11 +43,11 @@ public class JavaUserDefinedUntypedAggregation
 
         public MyAverage()
         {
-            List<StructField> inputFields = new ArrayList<>();
+            List<StructField> inputFields = new ArrayList<StructField>();
             inputFields.add(DataTypes.createStructField("inputColumn", DataTypes.LongType, true));
             inputSchema = DataTypes.createStructType(inputFields);
 
-            List<StructField> bufferFields = new ArrayList<>();
+            List<StructField> bufferFields = new ArrayList<StructField>();
             bufferFields.add(DataTypes.createStructField("sum", DataTypes.LongType, true));
             bufferFields.add(DataTypes.createStructField("count", DataTypes.LongType, true));
             bufferSchema = DataTypes.createStructType(bufferFields);
