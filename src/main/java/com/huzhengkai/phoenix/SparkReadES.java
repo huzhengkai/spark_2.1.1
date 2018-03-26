@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  * Created by root on 2018/3/9.
  */
-public class RebuildIndex
+public class SparkReadES
 {
     public static void main(String[] args) throws IOException
     {

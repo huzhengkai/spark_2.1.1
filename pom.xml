@@ -35,9 +35,15 @@
             <artifactId>spark-hive_2.11</artifactId>
             <version>2.1.1</version>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.elasticsearch</groupId>
             <artifactId>elasticsearch-hadoop</artifactId>
+            <version>5.5.3</version>
+        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/org.elasticsearch/elasticsearch-spark-20 -->
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch-spark-20_2.11</artifactId>
             <version>5.5.3</version>
         </dependency>
         <dependency>

@@ -29,7 +29,7 @@ public class OracleToES
                 .appName("OracleToEs")
                 .master("local[2]")
                 .config("spark.testing.memory", "2147480000")
-                .config("es.nodes", "192.168.3.250:9200")
+                .config("es.nodes", "es-cn-0pp0ebu1o000u7pog.kibana.elasticsearch.aliyuncs.com:9200")
                 .config("es.index.auto.create", "true")
                 .config("es.net.http.auth.user", "elastic")
                 .config("es.net.http.auth.pass", "phkj@123")
@@ -67,14 +67,6 @@ public class OracleToES
                 return obj1.toJSONString();
             }
         });
-//        rdd2.foreach(new VoidFunction<String>()
-//        {
-//            @Override
-//            public void call(String s) throws Exception
-//            {
-//                System.out.println(s);
-//            }
-//        });
         JavaEsSpark.saveJsonToEs(rdd2,"ds_rpt_t_loan_wide/data");
     }
 }
