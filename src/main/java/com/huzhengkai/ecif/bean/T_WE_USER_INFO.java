@@ -1,9 +1,11 @@
 package com.huzhengkai.ecif.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by root on 2018/3/26.
  */
-public class T_WE_USER_INFO
+public class T_WE_USER_INFO implements Serializable
 {
     private String ID;
     private String OPEN_ID;

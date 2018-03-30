@@ -1,11 +1,12 @@
 package com.huzhengkai.ecif.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by root on 2018/3/29.
  */
-public class T_SMSPLTFORM_SNED_DATA
+public class T_SMSPLTFORM_SNED_DATA implements Serializable
 {
     private String ORG_ID;
     private String MOBILE_PHONE;

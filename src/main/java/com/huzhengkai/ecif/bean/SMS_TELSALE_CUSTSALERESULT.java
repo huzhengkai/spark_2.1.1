@@ -1,11 +1,12 @@
 package com.huzhengkai.ecif.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by root on 2018/3/28.
  */
-public class SMS_TELSALE_CUSTSALERESULT
+public class SMS_TELSALE_CUSTSALERESULT implements Serializable
 {
     private String RESULT_ID;
     private String CERT_NO;

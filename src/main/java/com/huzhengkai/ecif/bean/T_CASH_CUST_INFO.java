@@ -1,9 +1,11 @@
 package com.huzhengkai.ecif.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by root on 2018/3/28.
  */
-public class T_CASH_CUST_INFO
+public class T_CASH_CUST_INFO implements Serializable
 {
     private String REG_MTH;
     private String LOAN_NO;

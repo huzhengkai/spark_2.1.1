@@ -1,9 +1,11 @@
 package com.huzhengkai.ecif.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by root on 2018/3/26.
  */
-public class T_CM_CUST_REGISTRY
+public class T_CM_CUST_REGISTRY implements Serializable
 {
     private String ID;
     private String OPEND_ID;

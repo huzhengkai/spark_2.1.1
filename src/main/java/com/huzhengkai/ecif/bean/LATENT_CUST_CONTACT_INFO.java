@@ -1,11 +1,12 @@
 package com.huzhengkai.ecif.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by root on 2018/3/29.
  */
-public class LATENT_CUST_CONTACT_INFO
+public class LATENT_CUST_CONTACT_INFO implements Serializable
 {
     private String LATENT_CUST_NO;
     private String CONTACT_TYPE;

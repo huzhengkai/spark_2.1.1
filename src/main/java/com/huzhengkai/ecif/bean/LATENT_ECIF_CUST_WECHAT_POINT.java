@@ -1,11 +1,12 @@
 package com.huzhengkai.ecif.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by root on 2018/3/29.
  */
-public class LATENT_ECIF_CUST_WECHAT_POINT
+public class LATENT_ECIF_CUST_WECHAT_POINT implements Serializable
 {
     private String ID;
     private String LATENT_CUST_NO;

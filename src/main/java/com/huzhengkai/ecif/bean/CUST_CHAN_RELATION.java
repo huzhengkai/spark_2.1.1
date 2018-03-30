@@ -1,9 +1,11 @@
 package com.huzhengkai.ecif.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by root on 2018/3/26.
  */
-public class CUST_CHAN_RELATION
+public class CUST_CHAN_RELATION implements Serializable
 {
     private String CUSTOMER_ID;
     private String CUST_TEL;

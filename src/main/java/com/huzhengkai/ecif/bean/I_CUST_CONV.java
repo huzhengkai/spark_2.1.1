@@ -1,11 +1,12 @@
 package com.huzhengkai.ecif.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by root on 2018/3/28.
  */
-public class I_CUST_CONV
+public class I_CUST_CONV implements Serializable
 {
     private String CUST_NO;
     private String SYS_ID;

@@ -11,6 +11,7 @@ import org.apache.spark.api.java.function.Function2;
 import org.apache.spark.api.java.function.MapFunction;
 import org.apache.spark.api.java.function.PairFunction;
 import org.apache.spark.sql.*;
+import org.apache.spark.sql.catalyst.expressions.GenericRow;
 import scala.Tuple2;
 
 import java.text.SimpleDateFormat;
@@ -44,7 +45,12 @@ public class ECIF_FINAL
 
     public static void main(String[] args)
     {
-
+        SparkSession spark = SparkSession
+                .builder()
+                .appName("ECIF_HZK")
+                .getOrCreate();
+        exportECIF_CUST_WECHAT_REG(spark);
+        spark.sparkContext().setLogLevel("ERROR");
     }
     //客户短信记录
     //ECIF_CUST_CONTACT_INFO表未导入，暂时不能做
@@ -78,17 +84,18 @@ public class ECIF_FINAL
         }
         //实名认证
         Dataset<Row> df1 = spark.sql("SELECT " +
-                "g.id, "+
-                "e.customer_id, " +
-                "f.opend_id, " +
-                "f.phone_num, " +
-                "d.cert_no, " +
-                "f.name, " +
-                "f.status, " +
-                "g.subscribe_time, " +
-                "f.insert_date, " +
-                "d.insert_date, " +
-                "d.valid_end_date " +
+                "g.id ID, "+
+                "e.customer_id ECIF_CUST_NO, " +
+                "f.opend_id WECHAT_OPENDID, " +
+                "f.phone_num PHONE_NO, " +
+                "d.cert_no CERT_NO, " +
+                "f.name CUST_NAME, " +
+                "'E1001003' TYPE, " +
+                "f.status STATUS, " +
+                "g.subscribe_time ATT_DATE, " +
+                "f.insert_date REG_DATE, " +
+                "d.insert_date AUTH_DATE, " +
+                "d.valid_end_date EXPIRE_DATE " +
                 "FROM " +
                 "T_MK_CUST_CERT_INFO d " +
                 "JOIN CUST_CHAN_RELATION e ON d.cid = e.chan_id " +
@@ -99,30 +106,21 @@ public class ECIF_FINAL
                 "AND d.cert_type = '50100001' " +
                 "AND g.subscribe = '67000001' " +
                 "AND f.id_card IS NOT NULL");
-        Encoder<ECIF_CUST_WECHAT_REG> ecif_cust_wechat_regEncoder = Encoders.javaSerialization(ECIF_CUST_WECHAT_REG.class);
-        Dataset<ECIF_CUST_WECHAT_REG> df2 = df1.map(new MapFunction<Row, ECIF_CUST_WECHAT_REG>()
-        {
-            @Override
-            public ECIF_CUST_WECHAT_REG call(Row value) throws Exception
-            {
-                ECIF_CUST_WECHAT_REG ecif_cust_wechat_reg = new ECIF_CUST_WECHAT_REG(value.getString(0),value.getString(1),
-                        value.getString(2),value.getString(3),value.getString(4),value.getString(5),
-                        "E1001003",value.getString(6),value.getString(7),value.getString(8),value.getString(9),
-                        value.getString(10));
 
-                return ecif_cust_wechat_reg;
-            }
-        },ecif_cust_wechat_regEncoder);
         //注册
         Dataset<Row> df3 = spark.sql("SELECT " +
-                "j.id, " +
-                "i.customer_id, " +
-                "h.opend_id, " +
-                "h.phone_num, " +
-                "h.name, " +
-                "h.status, " +
-                "j.subscribe_time, " +
-                "h.insert_date " +
+                "j.id ID, " +
+                "i.customer_id ECIF_CUST_NO, " +
+                "h.opend_id WECHAT_OPENDID, " +
+                "h.phone_num PHONE_NO, " +
+                "'' CERT_NO, " +
+                "h.name CUST_NAME, " +
+                "'E1001002' TYPE, " +
+                "h.status STATUS, " +
+                "j.subscribe_time ATT_DATE, " +
+                "h.insert_date REG_DATE, " +
+                "'' AUTH_DATE, " +
+                "'' EXPIRE_DATE " +
                 "FROM " +
                 "T_CM_CUST_REGISTRY h " +
                 "JOIN CUST_CHAN_RELATION i ON h.cid = i.chan_id " +
@@ -131,42 +129,35 @@ public class ECIF_FINAL
                 "h.id_card IS NULL " +
                 "AND i.chan_type = '01' " +
                 "AND j.subscribe = '67000001'");
-        Dataset<ECIF_CUST_WECHAT_REG> df4 = df3.map(new MapFunction<Row, ECIF_CUST_WECHAT_REG>()
-        {
-            @Override
-            public ECIF_CUST_WECHAT_REG call(Row value) throws Exception
-            {
-                ECIF_CUST_WECHAT_REG ecif_cust_wechat_reg = new ECIF_CUST_WECHAT_REG(value.getString(0),value.getString(1),
-                        value.getString(2),value.getString(3),null,value.getString(4),"E1001002",value.getString(5),
-                        value.getString(6),value.getString(7),null,null);
-                return ecif_cust_wechat_reg;
-            }
-        },ecif_cust_wechat_regEncoder);
+//
         //关注
         Dataset<Row> df5 = spark.sql("SELECT " +
-                "k.id, "+
-                "k.open_id, " +
-                "k.subscribe_time " +
+                "k.id ID, " +
+                "'' ECIF_CUST_NO, " +
+                "k.open_id WECHAT_OPENDID, " +
+                "'' PHONE_NO, " +
+                "'' CERT_NO, " +
+                "'' CUST_NAME, " +
+                "'E1001001' TYPE, " +
+                "'' STATUS, " +
+                "k.subscribe_time ATT_DATE, " +
+                "'' REG_DATE, " +
+                "'' AUTH_DATE, " +
+                "'' EXPIRE_DATE " +
                 "FROM " +
                 "T_WE_USER_INFO k " +
-                "JOIN T_CM_CUST_REGISTRY l ON k.open_id <> l.opend_id " +
+                "LEFT JOIN T_CM_CUST_REGISTRY l ON k.open_id = l.opend_id " +
                 "WHERE " +
-                "k.subscribe = '67000001'");
-        Dataset<ECIF_CUST_WECHAT_REG> df6 = df5.map(new MapFunction<Row, ECIF_CUST_WECHAT_REG>()
-        {
-            @Override
-            public ECIF_CUST_WECHAT_REG call(Row value) throws Exception
-            {
-                ECIF_CUST_WECHAT_REG ecif_cust_wechat_reg = new ECIF_CUST_WECHAT_REG(value.getString(0),null,value.getString(1),
-                        null,null,null,null,null,value.getString(2),null,null,null);
-                return null;
-            }
-        },ecif_cust_wechat_regEncoder);
-        //得到最终所有的数据
-        Dataset<ECIF_CUST_WECHAT_REG> dfFinal = df2.union(df4).union(df6);
-        dfFinal.write().format("org.apache.phoenix.spark")
+                "k.subscribe = '67000001' " +
+                "and l.opend_id is null");
+
+
+        Dataset<Row> dfFinal = df1.union(df3).union(df5);
+        dfFinal.write().mode(SaveMode.Overwrite)
+                .format("org.apache.phoenix.spark")
                 .option("table","ECIF_CUST_WECHAT_REG")
-                .option("zkUrl","hb-bp1w9r77987gze6u8-001.hbase.rds.aliyuncs.com,hb-bp1w9r77987gze6u8-002.hbase.rds.aliyuncs.com,hb-bp1w9r77987gze6u8-003.hbase.rds.aliyuncs.com:2181");
+                .option("zkUrl","hb-bp1w9r77987gze6u8-001.hbase.rds.aliyuncs.com,hb-bp1w9r77987gze6u8-002.hbase.rds.aliyuncs.com,hb-bp1w9r77987gze6u8-003.hbase.rds.aliyuncs.com:2181")
+                .save();
     }
     //客户微信埋点信息
     public static void exportECIF_CUST_WECHAT_POINT(SparkSession spark)
@@ -704,7 +695,7 @@ public class ECIF_FINAL
         SparkContext sc = spark.sparkContext();
         JavaSparkContext jsc = new JavaSparkContext(sc);
         JavaRDD<T_MK_CUST_CERT_INFO> T_MK_CUST_CERT_INFO = jsc.
-                textFile("hdfs://emr-header-1.cluster-55030:9000/user/hadoop/pcl.WCHAT.T_MK_CUST_CERT_INFO/add/2018_03_26")
+                textFile("hdfs://emr-header-1.cluster-55030:9000/user/hadoop/pcl.WCHAT.T_MK_CUST_CERT_INFO/add/2018_03_29")
                 .map(new Function<String, T_MK_CUST_CERT_INFO>()
                 {
                     @Override
@@ -752,7 +743,7 @@ public class ECIF_FINAL
         SparkContext sc = spark.sparkContext();
         JavaSparkContext jsc = new JavaSparkContext(sc);
         JavaRDD<CUST_CHAN_RELATION> CUST_CHAN_RELATION = jsc.
-                textFile("hdfs://emr-header-1.cluster-55030:9000/user/hadoop/pcl.CUST_CHAN_RELATION/all/2018_03_26")
+                textFile("hdfs://emr-header-1.cluster-55030:9000/user/hadoop/pcl.CUST_CHAN_RELATION/all/2018_03_29")
                 .map(new Function<String, CUST_CHAN_RELATION>()
                 {
                     @Override
@@ -775,7 +766,7 @@ public class ECIF_FINAL
         SparkContext sc = spark.sparkContext();
         JavaSparkContext jsc = new JavaSparkContext(sc);
         JavaRDD<T_CM_CUST_REGISTRY> T_CM_CUST_REGISTRY = jsc.
-                textFile("hdfs://emr-header-1.cluster-55030:9000/user/hadoop/pcl.WCHAT.T_CM_CUST_REGISTRY/add/2018_03_27")
+                textFile("hdfs://emr-header-1.cluster-55030:9000/user/hadoop/pcl.WCHAT.T_CM_CUST_REGISTRY/add/2018_03_29")
                 .map(new Function<String, T_CM_CUST_REGISTRY>()
                 {
                     @Override
@@ -798,7 +789,7 @@ public class ECIF_FINAL
         SparkContext sc = spark.sparkContext();
         JavaSparkContext jsc = new JavaSparkContext(sc);
         JavaRDD<T_WE_USER_INFO> T_WE_USER_INFO = jsc.
-                textFile("hdfs://emr-header-1.cluster-55030:9000/user/hadoop/pcl.WCHAT.T_WE_USER_INFO/add/2018_03_26")
+                textFile("hdfs://emr-header-1.cluster-55030:9000/user/hadoop/pcl.WCHAT.T_WE_USER_INFO/add/2018_03_29")
                 .map(new Function<String, T_WE_USER_INFO>()
                 {
                     @Override

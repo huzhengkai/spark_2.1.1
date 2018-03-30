@@ -1,11 +1,12 @@
 package com.huzhengkai.ecif.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by root on 2018/3/28.
  */
-public class T_CUST_CREDIT_DETAIL
+public class T_CUST_CREDIT_DETAIL implements Serializable
 {
     private String TABLE_KEY;
     private String CREDIT_ID;

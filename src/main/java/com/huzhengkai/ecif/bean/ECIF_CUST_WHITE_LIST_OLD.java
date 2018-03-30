@@ -1,9 +1,11 @@
 package com.huzhengkai.ecif.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by root on 2018/3/28.
  */
-public class ECIF_CUST_WHITE_LIST_OLD
+public class ECIF_CUST_WHITE_LIST_OLD implements Serializable
 {
     private String ID;
     private String ECIF_CUST_NO;

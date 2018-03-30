@@ -1,9 +1,11 @@
 package com.huzhengkai.ecif.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by root on 2018/3/27.
  */
-public class T_MK_CUST_BURIED_POINT_INFO
+public class T_MK_CUST_BURIED_POINT_INFO implements Serializable
 {
     private String ID;
     private String CID;

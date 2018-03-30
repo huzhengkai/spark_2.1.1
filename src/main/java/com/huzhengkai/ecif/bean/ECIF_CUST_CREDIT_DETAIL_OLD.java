@@ -1,9 +1,11 @@
 package com.huzhengkai.ecif.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by root on 2018/3/29.
  */
-public class ECIF_CUST_CREDIT_DETAIL_OLD
+public class ECIF_CUST_CREDIT_DETAIL_OLD implements Serializable
 {
     private String ID;
     private String CREDIT_ID;

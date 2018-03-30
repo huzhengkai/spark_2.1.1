@@ -1,9 +1,11 @@
 package com.huzhengkai.ecif.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by root on 2018/3/29.
  */
-public class LATENT_CUST_BASE_INFO
+public class LATENT_CUST_BASE_INFO implements Serializable
 {
     private String LATENT_CUST_NO;
     private String CERT_TYPE;

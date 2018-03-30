@@ -1,11 +1,12 @@
 package com.huzhengkai.ecif.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by root on 2018/3/28.
  */
-public class ECIF_CUST_MKTG_RESULT
+public class ECIF_CUST_MKTG_RESULT implements Serializable
 {
     private String ECIF_CUST_NO;
     private String CERT_TYPE;
