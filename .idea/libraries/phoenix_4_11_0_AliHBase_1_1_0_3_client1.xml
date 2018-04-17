@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="phoenix-4.11.0-AliHBase-1.1-0.3-client1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/phoenix-4.11.0-AliHBase-1.1-0.3-client1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/phoenix-4.11.0-AliHBase-1.1-0.3-client1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/phoenix-4.11.0-AliHBase-1.1-0.3-client1.jar!/com/aliyun/phoenix/shaded" />
+    </SOURCES>
+  </library>
+</component>

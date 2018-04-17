@@ -37,25 +37,19 @@ import org.apache.spark.api.java.function.MapFunction;
 // $example on:create_df$
 // $example on:run_sql$
 // $example on:programmatic_schema$
-import org.apache.spark.sql.Dataset;
-import org.apache.spark.sql.Row;
+import org.apache.spark.sql.*;
 // $example off:programmatic_schema$
 // $example off:create_df$
 // $example off:run_sql$
-import org.apache.spark.sql.Encoder;
-import org.apache.spark.sql.Encoders;
 // $example off:create_ds$
 // $example off:schema_inferring$
-import org.apache.spark.sql.RowFactory;
 // $example on:init_session$
-import org.apache.spark.sql.SparkSession;
 // $example off:init_session$
 // $example on:programmatic_schema$
 import org.apache.spark.sql.types.DataTypes;
 import org.apache.spark.sql.types.StructField;
 import org.apache.spark.sql.types.StructType;
 // $example off:programmatic_schema$
-import org.apache.spark.sql.AnalysisException;
 
 // $example on:untyped_ops$
 // col("...") is preferable to df.col("...")
@@ -107,8 +101,14 @@ public class JavaSparkSQLExample
 //        runBasicDataFrameExample(spark);
 //        runDatasetCreationExample(spark);
 //        runInferSchemaExample(spark);
-        runProgrammaticSchemaExample(spark);
+        //runProgrammaticSchemaExample(spark);
 
+        Dataset<Row> ds  = spark.read().option("header","true").csv("D:\\IDEA\\spark_2_1_1\\src\\main\\resources\\bbb.csv");
+        ds.write().mode(SaveMode.Overwrite)
+                .format("org.apache.phoenix.spark")
+                .option("table","LATENT_CUST_MKTG_RESULT")
+                .option("zkUrl","hb-proxy-pub-bp1w9r77987gze6u8-001.hbase.rds.aliyuncs.com,hb-proxy-pub-bp1w9r77987gze6u8-002.hbase.rds.aliyuncs.com,hb-proxy-pub-bp1w9r77987gze6u8-003.hbase.rds.aliyuncs.com:2181")
+                .save();
         spark.stop();
     }
 

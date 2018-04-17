@@ -16,9 +16,18 @@ public class Test1
 {
     public static void main(String[] args) throws ParseException
     {
-        String s = "2017/7/31 5:37:56";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-        Date d = sdf.parse(s);
-        System.out.println(d);
+        String s = "2018-03-09 01:50:44.0";
+        Integer i = s.indexOf(".");
+        if(i!=-1)
+        {
+            s.split(".");
+        }
+
+        String []sss =  s.split("\\.");
+        System.out.println(sss.length);
+        for(String a :sss)
+        {
+            System.out.println(a);
+        }
     }
 }

@@ -15,7 +15,7 @@ public class SMS_TELSALE_CUSTSALERESULT implements Serializable
     private String OPERATE_TYPE;
     private String RESULT_STATE;
     private String REMARK;
-    private Date UPDATE_TIME;
+    private String UPDATE_TIME;
     private String UPDATE_USERID;
     private String UPDATE_USERNAME;
     private String SERIAL_NO;
@@ -26,7 +26,7 @@ public class SMS_TELSALE_CUSTSALERESULT implements Serializable
     {
     }
 
-    public SMS_TELSALE_CUSTSALERESULT(String RESULT_ID, String CERT_NO, String ECIF_CUST_NO, String TEL_NO, String OPERATE_TYPE, String RESULT_STATE, String REMARK, Date UPDATE_TIME, String UPDATE_USERID, String UPDATE_USERNAME, String SERIAL_NO, String TASK_ID, String CUST_NAME)
+    public SMS_TELSALE_CUSTSALERESULT(String RESULT_ID, String CERT_NO, String ECIF_CUST_NO, String TEL_NO, String OPERATE_TYPE, String RESULT_STATE, String REMARK, String UPDATE_TIME, String UPDATE_USERID, String UPDATE_USERNAME, String SERIAL_NO, String TASK_ID, String CUST_NAME)
     {
         this.RESULT_ID = RESULT_ID;
         this.CERT_NO = CERT_NO;
@@ -167,12 +167,12 @@ public class SMS_TELSALE_CUSTSALERESULT implements Serializable
         this.REMARK = REMARK;
     }
 
-    public Date getUPDATE_TIME()
+    public String getUPDATE_TIME()
     {
         return UPDATE_TIME;
     }
 
-    public void setUPDATE_TIME(Date UPDATE_TIME)
+    public void setUPDATE_TIME(String UPDATE_TIME)
     {
         this.UPDATE_TIME = UPDATE_TIME;
     }

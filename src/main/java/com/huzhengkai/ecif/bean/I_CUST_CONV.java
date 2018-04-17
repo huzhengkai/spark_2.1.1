@@ -14,17 +14,17 @@ public class I_CUST_CONV implements Serializable
     private String CERT_NO;
     private String CUST_NAME;
     private String ECIF_CUST_NO;
-    private Date INSERT_TIME;
+    private String INSERT_TIME;
     private String VALID_FLAG;
     private String BUSI_DT;
-    private Date UPDATE_TIME;
+    private String UPDATE_TIME;
     private String LOAN_NO;
 
     public I_CUST_CONV()
     {
     }
 
-    public I_CUST_CONV(String CUST_NO, String SYS_ID, String CERT_TYPE, String CERT_NO, String CUST_NAME, String ECIF_CUST_NO, Date INSERT_TIME, String VALID_FLAG, String BUSI_DT, Date UPDATE_TIME, String LOAN_NO)
+    public I_CUST_CONV(String CUST_NO, String SYS_ID, String CERT_TYPE, String CERT_NO, String CUST_NAME, String ECIF_CUST_NO, String INSERT_TIME, String VALID_FLAG, String BUSI_DT, String UPDATE_TIME, String LOAN_NO)
     {
         this.CUST_NO = CUST_NO;
         this.SYS_ID = SYS_ID;
@@ -146,12 +146,12 @@ public class I_CUST_CONV implements Serializable
         this.ECIF_CUST_NO = ECIF_CUST_NO;
     }
 
-    public Date getINSERT_TIME()
+    public String getINSERT_TIME()
     {
         return INSERT_TIME;
     }
 
-    public void setINSERT_TIME(Date INSERT_TIME)
+    public void setINSERT_TIME(String INSERT_TIME)
     {
         this.INSERT_TIME = INSERT_TIME;
     }
@@ -176,12 +176,12 @@ public class I_CUST_CONV implements Serializable
         this.BUSI_DT = BUSI_DT;
     }
 
-    public Date getUPDATE_TIME()
+    public String getUPDATE_TIME()
     {
         return UPDATE_TIME;
     }
 
-    public void setUPDATE_TIME(Date UPDATE_TIME)
+    public void setUPDATE_TIME(String UPDATE_TIME)
     {
         this.UPDATE_TIME = UPDATE_TIME;
     }

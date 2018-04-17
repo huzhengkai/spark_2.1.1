@@ -14,9 +14,9 @@ public class T_CUST_CREDIT_DETAIL implements Serializable
     private Double CREDIT_AMT;
     private Double CREDIT_USED_AMT;
     private Double CREDIT_REMAIN_AMT;
-    private Date CREDIT_BEG_DATE;
-    private Date CREDIT_END_DATE;
-    private Date CREDIT_INSERT_DATE;
+    private String CREDIT_BEG_DATE;
+    private String CREDIT_END_DATE;
+    private String CREDIT_INSERT_DATE;
     private String STATE;
     private String OTHER_STATE;
     private String REMARK;
@@ -26,7 +26,7 @@ public class T_CUST_CREDIT_DETAIL implements Serializable
     {
     }
 
-    public T_CUST_CREDIT_DETAIL(String TABLE_KEY, String CREDIT_ID, String CREDIT_TYPE, Double CREDIT_AMT, Double CREDIT_USED_AMT, Double CREDIT_REMAIN_AMT, Date CREDIT_BEG_DATE, Date CREDIT_END_DATE, Date CREDIT_INSERT_DATE, String STATE, String OTHER_STATE, String REMARK, String PROD_TYPE)
+    public T_CUST_CREDIT_DETAIL(String TABLE_KEY, String CREDIT_ID, String CREDIT_TYPE, Double CREDIT_AMT, Double CREDIT_USED_AMT, Double CREDIT_REMAIN_AMT, String CREDIT_BEG_DATE, String CREDIT_END_DATE, String CREDIT_INSERT_DATE, String STATE, String OTHER_STATE, String REMARK, String PROD_TYPE)
     {
         this.TABLE_KEY = TABLE_KEY;
         this.CREDIT_ID = CREDIT_ID;
@@ -159,32 +159,32 @@ public class T_CUST_CREDIT_DETAIL implements Serializable
         this.CREDIT_REMAIN_AMT = CREDIT_REMAIN_AMT;
     }
 
-    public Date getCREDIT_BEG_DATE()
+    public String getCREDIT_BEG_DATE()
     {
         return CREDIT_BEG_DATE;
     }
 
-    public void setCREDIT_BEG_DATE(Date CREDIT_BEG_DATE)
+    public void setCREDIT_BEG_DATE(String CREDIT_BEG_DATE)
     {
         this.CREDIT_BEG_DATE = CREDIT_BEG_DATE;
     }
 
-    public Date getCREDIT_END_DATE()
+    public String getCREDIT_END_DATE()
     {
         return CREDIT_END_DATE;
     }
 
-    public void setCREDIT_END_DATE(Date CREDIT_END_DATE)
+    public void setCREDIT_END_DATE(String CREDIT_END_DATE)
     {
         this.CREDIT_END_DATE = CREDIT_END_DATE;
     }
 
-    public Date getCREDIT_INSERT_DATE()
+    public String getCREDIT_INSERT_DATE()
     {
         return CREDIT_INSERT_DATE;
     }
 
-    public void setCREDIT_INSERT_DATE(Date CREDIT_INSERT_DATE)
+    public void setCREDIT_INSERT_DATE(String CREDIT_INSERT_DATE)
     {
         this.CREDIT_INSERT_DATE = CREDIT_INSERT_DATE;
     }

@@ -27,23 +27,23 @@ public class CUST_CHAN_RELATION implements Serializable
     }
     public void convertNull()
     {
-        if(this.getCUSTOMER_ID().equals("null"))
+        if(this.getCUSTOMER_ID().equals(""))
         {
             this.setCUSTOMER_ID(null);
         }
-        if(this.getCUST_TEL().equals("null"))
+        if(this.getCUST_TEL().equals(""))
         {
             this.setCUST_TEL(null);
         }
-        if(this.getCHAN_TYPE().equals("null"))
+        if(this.getCHAN_TYPE().equals(""))
         {
             this.setCHAN_TYPE(null);
         }
-        if(this.getCHAN_ID().equals("null"))
+        if(this.getCHAN_ID().equals(""))
         {
             this.setCHAN_ID(null);
         }
-        if(this.getCUST_CERT_NO().equals("null"))
+        if(this.getCUST_CERT_NO().equals(""))
         {
             this.setCUST_CERT_NO(null);
         }

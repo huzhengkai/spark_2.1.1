@@ -21,7 +21,7 @@ public class SparkToEs
     {
         SparkConf conf = new SparkConf().setAppName("SparkToEs").setMaster("local[2]");
         conf.set("spark.testing.memory", "2147480000");
-        conf.set("es.nodes", "192.168.3.250:9200");
+        conf.set("es.nodes", "es-cn-0pp0ebu1o000u7pog.elasticsearch.aliyuncs.com:9200");
         conf.set("es.index.auto.create", "true");
         conf.set("es.input.json", "true");
         conf.set("es.net.http.auth.user", "elastic");

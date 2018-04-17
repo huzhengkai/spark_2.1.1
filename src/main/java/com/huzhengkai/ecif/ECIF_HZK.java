@@ -252,7 +252,7 @@ public class ECIF_HZK
                         String [] s1 = value.split("\\@\\|\\^");
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                         SMS_TELSALE_CUSTSALERESULT sms_telsale_custsaleresult = new SMS_TELSALE_CUSTSALERESULT(s1[0],s1[1],s1[2],s1[3],s1[4]
-                        ,s1[5],s1[6],sdf.parse(s1[7]),s1[8],s1[9],s1[10],s1[11],s1[12]);
+                        ,s1[5],s1[6],s1[7],s1[8],s1[9],s1[10],s1[11],s1[12]);
                         sms_telsale_custsaleresult.convertNull();
                         return sms_telsale_custsaleresult;
                     }
@@ -341,10 +341,10 @@ public class ECIF_HZK
                     @Override
                     public I_CUST_CONV call(String value) throws Exception
                     {
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
                         String [] s1 = value.split("\\@\\|\\^");
                         I_CUST_CONV i_cust_conv = new I_CUST_CONV(s1[0],s1[1],s1[2],s1[3],
-                                s1[4],s1[5],sdf.parse(s1[6]),s1[7],s1[8],sdf.parse(s1[9]),s1[10]);
+                                s1[4],s1[5],s1[6],s1[7],s1[8],s1[9],s1[10]);
                         i_cust_conv.convertNull();
                         return i_cust_conv;
                     }
@@ -406,10 +406,10 @@ public class ECIF_HZK
                     @Override
                     public I_CUST_CONV call(String value) throws Exception
                     {
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
                         String [] s1 = value.split("\\@\\|\\^");
                         I_CUST_CONV i_cust_conv = new I_CUST_CONV(s1[0],s1[1],s1[2],s1[3],
-                                s1[4],s1[5],sdf.parse(s1[6]),s1[7],s1[8],sdf.parse(s1[9]),s1[10]);
+                                s1[4],s1[5],s1[6],s1[7],s1[8],s1[9],s1[10]);
                         i_cust_conv.convertNull();
                         return i_cust_conv;
                     }

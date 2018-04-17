@@ -14,14 +14,14 @@ public class T_SMSPLTFORM_SNED_DATA implements Serializable
     private String APPLIC_CODE;
     private String SEND_FLAG;
     private String DATAID;
-    private Date BUSI_DT;
+    private String BUSI_DT;
     private String TABLE_KEY;
 
     public T_SMSPLTFORM_SNED_DATA()
     {
     }
 
-    public T_SMSPLTFORM_SNED_DATA(String ORG_ID, String MOBILE_PHONE, String SQL_COLLECT, String APPLIC_CODE, String SEND_FLAG, String DATAID, Date BUSI_DT, String TABLE_KEY)
+    public T_SMSPLTFORM_SNED_DATA(String ORG_ID, String MOBILE_PHONE, String SQL_COLLECT, String APPLIC_CODE, String SEND_FLAG, String DATAID, String BUSI_DT, String TABLE_KEY)
     {
         this.ORG_ID = ORG_ID;
         this.MOBILE_PHONE = MOBILE_PHONE;
@@ -128,12 +128,12 @@ public class T_SMSPLTFORM_SNED_DATA implements Serializable
         this.DATAID = DATAID;
     }
 
-    public Date getBUSI_DT()
+    public String getBUSI_DT()
     {
         return BUSI_DT;
     }
 
-    public void setBUSI_DT(Date BUSI_DT)
+    public void setBUSI_DT(String BUSI_DT)
     {
         this.BUSI_DT = BUSI_DT;
     }
